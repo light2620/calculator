@@ -53,7 +53,7 @@ const CustomerHistory = () => {
 }, [data]);
     
   return (
-    <div className="card">
+    <div className="customer-history-card">
       {customerHistoryData.map((field, index) => (
         <div className="fields" key={index}>
           <label>

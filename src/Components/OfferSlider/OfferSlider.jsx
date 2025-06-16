@@ -27,7 +27,7 @@ const OfferSlider = ({calculatorData,setCalculatorData,handleChange}) => {
         name='adjust_offer'
         min="0"
         max="100"
-        value={calculatorData.adjust_offer}
+        value={calculatorData.adjust_offer }
         onChange={handleChange}
         ref={rangeRef}
       />

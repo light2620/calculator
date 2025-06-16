@@ -36,14 +36,14 @@ const JDTrendChart = ({ crData }) => {
         label: 'JD Value',
         data: values,
         fill: false,
-        borderColor: '#5D5FEF', // Indigo-500
+        borderColor: '#5D5FEF', 
         tension: 0.4,
         pointBackgroundColor: '#5D5FEF',
         pointBorderColor: '#5D5FEF',
         pointBorderWidth: 2,
         pointRadius: 6,
         pointHoverRadius: 8,
-        pointHoverBackgroundColor: '#5D5FEF', // Indigo-700
+        pointHoverBackgroundColor: '#5D5FEF', 
         pointHoverBorderColor: '#fff',
       },
     ],

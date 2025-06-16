@@ -36,10 +36,6 @@ const TransactionsTable = () => {
     });
   };
 
-  const resetFilters = () => {
-    setColumnSorts({});
-  };
-
  const applySorting = (data) => {
   let result = [...data];
   const activeSorts = Object.entries(columnSorts).filter(([_, dir]) => dir !== "none");
@@ -105,9 +101,9 @@ const TransactionsTable = () => {
       <div className="table-header">
         <h2>Transactions</h2>
         <div className="actions">
-          <button className="filter-btn" onClick={resetFilters}>
+          <button className="filter-btn">
             <FaFilter style={{ marginRight: "6px" }} />
-            Reset Filters
+            Filters
           </button>
           <button className="download-btn" onClick={exportToCSV}>
             <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
@@ -137,6 +133,7 @@ const TransactionsTable = () => {
               })}
             </tr>
           </thead>
+
           <tbody>
             {currentRows.length > 0 ? (
               currentRows.map((item, index) => (

@@ -12,7 +12,7 @@ const vehiclePhotos = [
 ];
 const VehiclePhotos = () => {
   return (
-    <div className="card vehicle-photos-card">
+    <div className="vehicle-photos-card">
      
             {vehiclePhotos.map((photo, index) => (
             <div className="vehicle-photo" key={index}>

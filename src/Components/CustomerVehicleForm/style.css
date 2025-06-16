@@ -77,4 +77,13 @@ padding-bottom: 18px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
+    .tab-option{ 
+    font-size: 14px;
+    padding: 0;
+    padding-bottom: 20px;
+}
+
+.fields p{
+  text-align: left;
+}
 }

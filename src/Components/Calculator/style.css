@@ -111,6 +111,7 @@
   font-size: 16px;
   padding: 15px;
   outline: none;
+  background: transparent;
 }
 
 .divider {
@@ -138,6 +139,7 @@
 .results-header p {
   font-weight: 400;
   font-size: 16px;
+  text-align: center;
 }
 
 .result-calculations {
@@ -186,6 +188,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 20px;
+    padding: 0;
   }
 
   .mmr-adjustments,
@@ -210,9 +213,31 @@
 
   .result-calculations {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .result-calculations > :last-child {
     grid-column: span 1;
+  }
+  .results-header p{
+    font-size: 14px;
+  }
+
+  .result h4{
+
+font-weight: 500;
+font-size: 12px;
+text-align: center;
+
+  }
+  .result p{
+
+font-weight: 600;
+font-size: 18px;
+
+  }
+  .result{
+    padding: 10px;
+    gap: 2px;
   }
 }

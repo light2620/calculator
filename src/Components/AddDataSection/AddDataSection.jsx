@@ -4,9 +4,14 @@ import "./style.css";
 import { useDispatch } from "react-redux";
 import { setAllData } from "../../Redux/allDataSlice";
 import { useSelector } from 'react-redux';
+import useIsMobile from "../../CustomHook/isMobile";
+import 'primeicons/primeicons.css';
 const AddDataSection = () => {
   const [email, setEmail] = useState("opa.gee@gmail.com");
+  const [loading,setLoading] = useState(false);
   const dispatch = useDispatch();
+  const  isMobile = useIsMobile();
+
   const [dataFields,setDataFields] = useState([
     { label: "Year", value: "" },
     { label: "Make", value: "" },
@@ -26,11 +31,14 @@ const AddDataSection = () => {
   formData.append("jd", selectedFile);
 
   try {
+    setLoading(true)
     const response = await axiosInstance.post("process-document/", formData);
     dispatch(setAllData(response.data));
      
   } catch (err) {
     console.error("Upload failed (file):", err.response?.data || err.message);
+  } finally{
+    setLoading(false);
   }
 };
 
@@ -44,11 +52,14 @@ const AddDataSection = () => {
     const formData = new FormData();
     formData.append("email", email);
     try {
+      setLoading(true);
       const response = await axiosInstance.post("process-document/", formData);
        dispatch(setAllData(response.data));
 
     } catch (err) {
       console.error("Upload failed:", err.response?.data || err.message);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -92,21 +103,24 @@ const AddDataSection = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <button 
-          disabled={email === ""}
-          onClick={handleSubmit}>Submit</button>
+          disabled={email === "" || loading}
+    
+          onClick={handleSubmit}>
+             {loading ? <i className="pi pi-spin pi-spinner"></i> : "Submit"}
+            </button>
           </div>
           
         </div>
-        
-        <hr />
-
+        {isMobile ? <p style={{"text-align": "center", "font-size" : "12px" , "font-weight" : "500", "color" : "#9F9F9F"}}>or</p> :  <hr />}
+       
         <div className="upload-section">
-          <label htmlFor="jd-upload" className="upload-label">Upload JD</label>
+          <label htmlFor="jd-upload" className="upload-label">{loading ? <i className="pi pi-spin pi-spinner"></i> : "Upload JD"}</label>
           <input
             type="file"
             id="jd-upload"
             accept="application/pdf"
             className="upload-input"
+              disabled={loading}
            onChange={(e) => handleFileUpload(e.target.files[0])}
           />
         </div>

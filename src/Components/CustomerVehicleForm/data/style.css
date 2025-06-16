@@ -1,3 +1,5 @@
+.vehicle-photos-card,
+.customer-history-card,
 .card {
   background-color: #EEF6FF;
   border-radius: 12px;
@@ -6,6 +8,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 
 .fields{
   display: flex;
@@ -17,6 +20,9 @@
   font-weight: 500;
   color:#000000;
   margin-bottom: 4px;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fields p {
@@ -48,9 +54,46 @@
 @media(max-width: 796px){
    .card{
     display: flex;
-    flex-direction: column;
-    gap : 20px;
+    flex-wrap: wrap;
+     gap : 20px;
+           row-gap: 30px;    /* only row spacing */
+  column-gap: 5.4%; 
           border-top-left-radius: 0;
       border-top-right-radius: 0;
+   }
+   .vehicle-photos-card
+   {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+   }
+  .customer-history-card{
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+   .card div{
+    width: 100%;
+   }
+   .card div:nth-child(1),
+   .card div:nth-child(2),
+   .card div:nth-child(5),
+   .card div:nth-child(6),
+   .card div:nth-child(7),
+   .card div:nth-child(8),
+   .card div:nth-child(13),
+   .card div:nth-child(14){
+    width: 47%;
+   }
+  
+    .vehicle-photo {
+    width: 100%;
+   }
+   .tabs-bottom-border{
+    border: none;
+    background-color: #F3F7FE;
    }
 }

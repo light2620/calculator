@@ -1,5 +1,8 @@
 .jd-chart-card {
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -11,10 +14,11 @@
 }
 
 .chart-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 10px;
+font-weight: 600;
+font-size: 22px;
+line-height: 100%;
+letter-spacing: 0%;
+color : #4F4F4F;
 }
 
 .chart-wrapper {
