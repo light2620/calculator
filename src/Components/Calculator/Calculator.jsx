@@ -29,7 +29,14 @@ const Calculator = () => {
     offer_auction_gap: "",
   });
 
-  const [msrp,setMsrp] = useState({
+  const [additionalFields, setAdditionalFields] = useState({
+    back_of_jd: "",
+    error_gap: "",
+    sold_at_auction: "",
+    customer_getting_jd: "",
+  });
+
+  const [msrp, setMsrp] = useState({
     msrp: "",
     adjustment: ""
   });
@@ -98,37 +105,81 @@ const Calculator = () => {
     });
   }, [data]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (!data) return;
 
     setMsrp((prev) => ({
-      ...prev,[msrp] : data?.msrp?.value
+      ...prev, [msrp]: data?.msrp?.value
     }));
   }, [data]);
 
-  const hanldeMsrpChange = async(e)=> {
-       const {name,value} = e.target;
+  useEffect(() => {
+    if (!data) return;
 
-        setMsrp((prev) => {
-          return {...prev,[name]: value};
-        });
-        const formData = new FormData();
-       formData.append("msrp", msrp.msrp);
-       formData.append("adjustment", msrp.adjustment);
-       if(msrp.msrp || msrp.adjustment){
-         try{
-           const response = await msrpCalculationApi(formData);
-           console.log(response);
-        }catch(err){
-          console.log(err);
-        }
-       }
-       
+    setAdditionalFields({
+      back_of_jd: data?.back_of_jd?.value || "",
+      error_gap: data?.error_gap?.value || "",
+      sold_at_auction: data?.sold_at_auction?.value || "",
+      customer_getting_jd: data?.customer_getting_jd?.value || "",
+    });
+  }, [data]);
+
+  const hanldeMsrpChange = async (e) => {
+    const { name, value } = e.target;
+
+    setMsrp((prev) => {
+      return { ...prev, [name]: value };
+    });
+    const formData = new FormData();
+    formData.append("msrp", msrp.msrp);
+    formData.append("adjustment", msrp.adjustment);
+    if (msrp.msrp || msrp.adjustment) {
+      try {
+        const response = await msrpCalculationApi(formData);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
   }
   useEffect(() => {
     setCalculation({});
   }, [data]);
+  const handleClear = () => {
+    setCalculatorData({
+      jd: "",
+      fees: "",
+      recon: "",
+      recon_percent: "",
+      transportation: "",
+      fluctuation: "",
+      adjust_offer: 0,
+      calculation_id: 1,
+    });
 
+    setCalculation({});
+    setInitialResult({
+      offer: "",
+      offer_after_recon: "",
+      sold_at_auction: "",
+      total_cost: "",
+      roi: "",
+      adjusted_offer_back_of_jd: "",
+      offer_auction_gap: "",
+    });
+
+    setMsrp({
+      msrp: "",
+      adjustment: "",
+    });
+    setAdditionalFields({
+      back_of_jd: " ",
+      error_gap: " ",
+      sold_at_auction: " ",
+      customer_getting_jd: " ",
+    });
+  };
   return (
     <div className="calculator-container">
       <div className="mmr-adjustments">
@@ -137,7 +188,7 @@ const Calculator = () => {
             <h4>MMR Adjustments</h4>
             <p>Enter the value accordingly</p>
           </div>
-          <div className="mmr-action">
+          <div className="mmr-action" onClick={handleClear}>
             <p>Clear</p>
           </div>
         </div>
@@ -224,7 +275,7 @@ const Calculator = () => {
               <label htmlFor="back-of-jd">Back of JD</label>
               <input
                 type="number"
-                value={data?.back_of_jd?.value || ""}
+                value={formatNumber(additionalFields.back_of_jd)}
                 id="back-of-jd"
                 readOnly
               />
@@ -235,7 +286,7 @@ const Calculator = () => {
               <input
                 type="number"
                 id="error-gap"
-                value={data?.error_gap?.value || ""}
+                value={formatNumber(additionalFields.error_gap)}
                 readOnly
               />
             </div>
@@ -245,7 +296,7 @@ const Calculator = () => {
               <input
                 type="number"
                 id="sold-auction"
-                value={data?.sold_at_auction?.value || ""}
+                value={formatNumber(additionalFields.sold_at_auction)}
                 readOnly
               />
             </div>
@@ -255,7 +306,7 @@ const Calculator = () => {
               <input
                 type="number"
                 id="percentage-of-jd"
-                value={data?.customer_getting_jd?.value || ""}
+                value={formatNumber(additionalFields.customer_getting_jd)}
                 readOnly
               />
             </div>
@@ -308,7 +359,7 @@ const Calculator = () => {
             <p>
               {formatNumber(
                 calculation?.adjusted_offer_back_of_jd ||
-                  initialResult.adjusted_offer_back_of_jd
+                initialResult.adjusted_offer_back_of_jd
               )}
             </p>
           </div>

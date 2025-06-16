@@ -1,29 +1,30 @@
 import React, { useState,useEffect} from 'react';
 import './style.css';
 import { useSelector } from 'react-redux';
+import useIsMobile from '../../../../CustomHook/isMobile';
 const VehicleHistory = () => {
   const [vehicleHistoryData,setVehicleHistoryData] = useState([
-    { label: "Lead Date", value: "-" },
-    { label: "CS Date", value: "-" },
-    { label: "Appraisal Date", value: "-" },
-    { label: "Vehicle Type", value: "-" },
-    { label: "Category", value: "-" },
-    { label: "Source", value: "-" },
-    { label: "Customer Info", value: "-" },
-    { label: "Year", value: "-" },
-    { label: "Make", value: "-" },
-    { label: "Series", value: "-" },
-    { label: "Model", value: "-" },
-    { label: "Length in Feet", value: "-" },
-    { label: "Width in Feet", value: "-" },
-    { label: "Number of Slides", value: "-" },
-    { label: "Miles", value: "-" },
-    { label: "Book Range", value: "-" },
-    { label: "MSRP", value: "-" },
+    { label: "Lead Date", value: "" },
+    { label: "CS Date", value: "" },
+    { label: "Appraisal Date", value: "" },
+    { label: "Vehicle Type", value: "" },
+    { label: "Category", value: "" },
+    { label: "Source", value: "" },
+    { label: "Customer Info", value: "" },
+    { label: "Year", value: "" },
+    { label: "Make", value: "" },
+    { label: "Series", value: "" },
+    { label: "Model", value: "" },
+    { label: "Length in Feet", value: "" },
+    { label: "Width in Feet", value: "" },
+    { label: "Number of Slides", value: "" },
+    { label: "Miles", value: "" },
+    { label: "Book Range", value: "" },
+    { label: "MSRP", value: "" },
     { label: "Reconditioning Notes", value: "" }
   ]);
    const data = useSelector((state) => state.allData.data);
-
+    const isMobile = useIsMobile()
   // Field labels used for categorizing layout
   const leftFields = ["Lead Date", "CS Date", "Appraisal Date"];
   const bottomFields = ["Book Range", "MSRP"];
@@ -76,9 +77,11 @@ const VehicleHistory = () => {
 
   return (
     <div className="vehicle-history-card">
-      <h3 className="section-title">Vehicle History</h3>
 
-      <div className="vehicle-history-container">
+
+      <h3 className="section-title">Vehicle History</h3>
+  { !isMobile ? <div>
+<div className="vehicle-history-container">
         <div className="left-column">
           {leftColumn.map((item, i) => (
             <div className="form-group" key={i}>
@@ -112,6 +115,25 @@ const VehicleHistory = () => {
           </div>
         )}
       </div>
+
+  </div> : (
+       
+         <div className="fields-container">
+          {vehicleHistoryData.map((field, index) => (
+         
+            <div className="fields" key={index}>
+              <label>
+                {field.label}
+              </label>
+              <p>{field.value ? field.value : ""}</p>
+            </div>
+           
+          ))}
+           </div>
+      
+      )}
+      
+
     </div>
   );
 };

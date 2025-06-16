@@ -9,6 +9,7 @@ import 'primeicons/primeicons.css';
 const AddDataSection = () => {
   const [email, setEmail] = useState("opa.gee@gmail.com");
   const [loading,setLoading] = useState(false);
+  const [uploadLoading,setUploadLoading] = useState(false);
   const dispatch = useDispatch();
   const  isMobile = useIsMobile();
 
@@ -31,14 +32,14 @@ const AddDataSection = () => {
   formData.append("jd", selectedFile);
 
   try {
-    setLoading(true)
+    setUploadLoading(true)
     const response = await axiosInstance.post("process-document/", formData);
     dispatch(setAllData(response.data));
      
   } catch (err) {
     console.error("Upload failed (file):", err.response?.data || err.message);
   } finally{
-    setLoading(false);
+    setUploadLoading(false);
   }
 };
 
@@ -114,13 +115,13 @@ const AddDataSection = () => {
         {isMobile ? <p style={{"text-align": "center", "font-size" : "12px" , "font-weight" : "500", "color" : "#9F9F9F"}}>or</p> :  <hr />}
        
         <div className="upload-section">
-          <label htmlFor="jd-upload" className="upload-label">{loading ? <i className="pi pi-spin pi-spinner"></i> : "Upload JD"}</label>
+          <label htmlFor="jd-upload" className="upload-label">{uploadLoading ? <i className="pi pi-spin pi-spinner"></i> : "Upload JD"}</label>
           <input
             type="file"
             id="jd-upload"
             accept="application/pdf"
             className="upload-input"
-              disabled={loading}
+              disabled={uploadLoading}
            onChange={(e) => handleFileUpload(e.target.files[0])}
           />
         </div>
@@ -131,7 +132,7 @@ const AddDataSection = () => {
           <div className="data-item" key={id}>
             <p>{field.label}</p>
             <div className="info">
-              <p>{field.value ? field.value : "-"}</p>
+              <p>{field.value ? field.value : ""}</p>
             </div>
           </div>
         ))}

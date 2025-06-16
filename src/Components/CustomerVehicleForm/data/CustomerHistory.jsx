@@ -61,7 +61,7 @@ const CustomerHistory = () => {
               .replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase())}
           </label>
-          <p>{field.value || "-"}</p>
+          <p>{field.value || ""}</p>
         </div>
       ))}
     </div>

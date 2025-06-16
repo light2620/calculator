@@ -75,3 +75,39 @@ color : #8A8A8A;
   outline: none;
   text-align: left;
 }
+
+
+@media(max-width: 769px){
+   .fields-container{
+       display: flex;
+       flex-wrap: wrap;
+             row-gap: 30px;    /* only row spacing */
+       column-gap: 5.4%; 
+   border-top-left-radius: 0;
+    border-top-right-radius: 0;
+   }
+
+   .fields-container div{
+    width: 100%;
+   }
+   .fields-container div:nth-child(1),
+   .fields-container div:nth-child(2),
+   .fields-container div:nth-child(4),
+   .fields-container div:nth-child(5),
+   .fields-container div:nth-child(8),
+   .fields-container div:nth-child(9),
+   .fields-container div:nth-child(10),
+   .fields-container div:nth-child(11),
+   .fields-container div:nth-child(12),
+   .fields-container div:nth-child(13),
+   .fields-container div:nth-child(14),
+   .fields-container div:nth-child(15)
+   {
+    width: 47%;
+   }
+
+   .fields-container div:last-child p{
+        height: 80px;
+   }
+   
+}

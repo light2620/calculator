@@ -36,7 +36,7 @@
     border: 1px solid #BCDDFF;
     display: flex;
     align-items: center;
-    justify-content: center;
+
 }
 
 .vehicle-photos-card{
@@ -56,8 +56,8 @@
     display: flex;
     flex-wrap: wrap;
      gap : 20px;
-           row-gap: 30px;    /* only row spacing */
-  column-gap: 5.4%; 
+      row-gap: 30px;    /* only row spacing */
+       column-gap: 5.4%; 
           border-top-left-radius: 0;
       border-top-right-radius: 0;
    }

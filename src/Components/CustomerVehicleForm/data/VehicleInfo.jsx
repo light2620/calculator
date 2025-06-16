@@ -4,22 +4,22 @@ import './style.css';
 
 const VehicleInfo = () => {
   const [vehicleData,setVehicleData] = useState([
-  { label: 'year', value: '-' },
-  { label: 'make', value: '-' },
-  { label: 'series', value: '-' },
-  { label: 'trimModel', value: '-' },
-  { label: 'miles', value: '-' },
-  { label: 'csMiles', value: '-' },
-  { label: 'engine', value: '-' },
-  { label: 'engineLightsOn', value: '-' },
-  { label: 'bookRange', value: '-' },
+  { label: 'year', value: '' },
+  { label: 'make', value: '' },
+  { label: 'series', value: '' },
+  { label: 'trimModel', value: '' },
+  { label: 'miles', value: '' },
+  { label: 'csMiles', value: '' },
+  { label: 'engine', value: '' },
+  { label: 'engineLightsOn', value: '' },
+  { label: 'bookRange', value: '' },
   { label: 'wholesaleJD', value: '' },
-  { label: 'retailJD', value: '-' },
-  { label: 'msrp', value: '-' },
-  { label: 'transportationCost', value: '-' },
-  { label: 'distance', value: '-' },
-  { label: 'estimatedPayoff', value: '-' },
-  { label: 'csEstimatedPayoff', value: '-' }
+  { label: 'retailJD', value: '' },
+  { label: 'msrp', value: '' },
+  { label: 'transportationCost', value: '' },
+  { label: 'distance', value: '' },
+  { label: 'estimatedPayoff', value: '' },
+  { label: 'csEstimatedPayoff', value: '' }
 ]);
 const data = useSelector((state) => state.allData.data);
 useEffect(() => {
@@ -75,7 +75,7 @@ useEffect(() => {
               .replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase())}
           </label>
-          <p>{field.value ? field.value : "-"}</p>
+          <p>{field.value ? field.value : ""}</p>
         </div>
       ))}
     </div>
