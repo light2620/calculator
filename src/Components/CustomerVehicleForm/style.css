@@ -1,0 +1,80 @@
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    border-radius: 20px;
+    background-color: #EEF6FF;
+    padding: 20px;
+    padding-bottom: 0;
+    cursor: pointer;
+    overflow-x: auto;
+    text-align: center;
+}
+.tabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.tabs-options{
+  width: 50%;
+
+}
+.tab-option {
+display: flex;
+font-weight: 500;
+align-items: center;
+font-size: 16px;
+padding: 0 20px;
+padding-bottom: 18px;
+}
+.active{
+    font-weight: 700;
+    border-bottom: 3px solid #100069;
+}
+
+.tabs-bottom-border{
+  width: 93%;
+  margin : 0 auto;
+  height: 2px;
+  background-color:rgb(172, 172, 196);
+  margin-top: -2px;
+}
+
+.tab-content {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+@media(max-width: 1300px){
+
+  .tabs-options{
+      width: 80%;
+    }
+
+
+}
+
+@media(max-width: 796px){
+    .tab-content{
+      padding: 0;
+    }
+    .tabs-options{
+      width: 100%;
+    }
+
+    .tabs{
+          border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    gap: 0;
+    }
+
+    .card{
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+}

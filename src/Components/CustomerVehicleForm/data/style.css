@@ -1,0 +1,56 @@
+.card {
+  background-color: #EEF6FF;
+  border-radius: 12px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.fields{
+  display: flex;
+  flex-direction: column;
+}
+
+.fields label {
+  font-size: 16px;
+  font-weight: 500;
+  color:#000000;
+  margin-bottom: 4px;
+}
+
+.fields p {
+  font-size: 16px;
+  color:black;
+  text-align: left;
+      background-color: #fff;
+    padding: 10px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #BCDDFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vehicle-photos-card{
+   gap: 60px;
+}
+
+
+.vehicle-photo{
+  width: 250px;
+  height: 180px;
+   background-color: #fff;
+   border-radius:7px;
+}
+
+@media(max-width: 796px){
+   .card{
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+          border-top-left-radius: 0;
+      border-top-right-radius: 0;
+   }
+}
