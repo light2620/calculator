@@ -95,7 +95,7 @@ const JDTrendChart = ({ crData }) => {
     <div className="jd-chart-card">
       <h4 className="chart-title">JD Trend</h4>
       <div className="chart-wrapper">
-        <Chart type="line" data={chartData} options={chartOptions} />
+        <Chart type="line" data={chartData} options={chartOptions}   height={350}/>
       </div>
     </div>
   );
