@@ -1,16 +1,16 @@
 .auth{
     background: #EEF6FF;
-    height: 85vh;
     padding: 20px;
+    height: 85vh;
 }
 
 .auth-container{
-    max-width: 800px;
+    max-width: 700px;
     background: #FFFFFF;
     border-radius : 25px;
-    margin: 0 auto;
-    margin-top : 6em;
     padding: 3em;
+    margin: 0 auto;
+    margin-top: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,6 +101,7 @@ color : #1E1E1E;
     height: 20px;
     font-weight: 500;
     color : #323232;
+    text-align: center;
 }
 
 .line {
@@ -180,6 +181,25 @@ left :4px;
    }
    .auth-container{
     padding: 2em;
- 
+    margin-top: 0;
+}
+.checkbox-group{
+  gap: 50px;
+}
+.auth-container-inner h1 {
+  font-size: 22px;
+}
+.auth-form-group input{
+  padding: 10px;
+  font-size : 14px;
+}
+
+.auth-button button{
+  font-size: 14px;
+}
+
+.google-auth button{
+   
+    font-size: 14px;
 }
 }
