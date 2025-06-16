@@ -10,4 +10,12 @@ const calculaterApi = async(data) => {
     }
 }
 
-export {calculaterApi}
+const msrpCalculationApi = async(data) => {
+    try{
+        const response = await axiosInstance.post("/msrp-adjust",data)
+        return response
+    }catch(err){
+        throw err
+    }
+}
+export {calculaterApi,msrpCalculationApi}
