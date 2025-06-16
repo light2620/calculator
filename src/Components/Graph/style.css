@@ -24,8 +24,11 @@ color : #4F4F4F;
 .chart-wrapper {
   position: relative;
   cursor: default;
+  overflow-x: auto;
 }
-
+.chart-scroll-container {
+  min-width: 600px; /* Chart will scroll if screen is narrower */
+}
 canvas {
   cursor: pointer;
 }
