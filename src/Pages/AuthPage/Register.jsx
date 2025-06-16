@@ -22,7 +22,7 @@ const Register = () => {
       ...prev,
       [name]: value,
     }));
-    console.log(createUserCredentials)
+
   };
 
   const handleCheckboxChange = (e) => {
@@ -31,7 +31,7 @@ const Register = () => {
       ...prev,
       [name]: checked ,
     }));
-    console.log(createUserCredentials)
+
   };
 
   const handleSubmit = async (e) => {

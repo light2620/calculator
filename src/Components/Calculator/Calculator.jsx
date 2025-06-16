@@ -60,7 +60,6 @@ const Calculator = () => {
       try {
         const response = await calculaterApi(updatedData);
         setCalculation(response.data);
-        console.log("API response:", response);
       } catch (error) {
         console.error("API call failed:", error);
       }
@@ -109,7 +108,7 @@ const Calculator = () => {
 
   const hanldeMsrpChange = async(e)=> {
        const {name,value} = e.target;
-       console.log(name,value)
+
         setMsrp((prev) => {
           return {...prev,[name]: value};
         });

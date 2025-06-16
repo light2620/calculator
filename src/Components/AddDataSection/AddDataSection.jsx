@@ -64,7 +64,7 @@ const AddDataSection = () => {
   };
 
   useEffect(() => {
-    console.log(data);
+
     setDataFields(prev => 
       prev.map(field => {
         switch(field.label){

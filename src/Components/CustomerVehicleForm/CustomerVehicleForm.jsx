@@ -21,7 +21,7 @@ const CustomerVehicleForm = ({data}) => {
             active: i === index
         }));
         setTabOptions(newTabOptions);
-        console.log(newTabOptions);
+
     }
   return (
     <div className="tabs-container">
