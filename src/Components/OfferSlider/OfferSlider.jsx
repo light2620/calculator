@@ -31,7 +31,7 @@ const OfferSlider = ({calculatorData,setCalculatorData,handleChange}) => {
         onChange={handleChange}
         ref={rangeRef}
       />
-      <div id="rangeValue">{calculatorData.adjust_offer}%</div>
+      <div id="rangeValue">{calculatorData.adjust_offer || 0}%</div>
     </div>
   );
 };
