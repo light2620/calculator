@@ -68,9 +68,9 @@ padding-bottom: 18px;
     }
 
     .tabs{
-          border-bottom-left-radius: 0;
+      border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    gap: 0;
+    gap: 25px;
     }
 
     .card{
