@@ -50,7 +50,7 @@ const Calculator = () => {
   const formatNumber = (num) => {
     return !isNaN(num) && num !== null && num !== undefined
       ? Number(num).toFixed(2)
-      : "-";
+      : "0.00";
   };
 
   const handleChange = async (e) => {
