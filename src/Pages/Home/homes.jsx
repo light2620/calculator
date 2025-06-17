@@ -1,13 +1,15 @@
 import React from 'react'
 import "./style.css"
+import { useEffect } from 'react'
 import AddDataSection from '../../Components/AddDataSection/AddDataSection'
 import CustomerVehicleForm from '../../Components/CustomerVehicleForm/CustomerVehicleForm'
 import Calculator from '../../Components/Calculator/Calculator'
 import TransactionsTable from '../../Components/Tranaction/Transaction'
 import JDTrendChart from '../../Components/Graph/Graph'
-const homes = () => {
-
-  
+import axiosInstance from '../../AxiosInstance/AxiosInstance'
+import { useSelector } from 'react-redux'
+const Homes = () => {
+     const { user } = useSelector((state) => state.user);
 const cr = {
   value: {
     "JD 23": "$41,400",
@@ -24,7 +26,12 @@ const cr = {
     // Add more JD entries as needed
   },
 };
+   useEffect(() => {
+     
+    console.log(user)
+    console.log();
 
+   },[user])
   return (
      <div className="main-content">
         <h1>RV Modeling App</h1>
@@ -40,4 +47,4 @@ const cr = {
   )
 }
 
-export default homes
+export default Homes

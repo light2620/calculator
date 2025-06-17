@@ -18,4 +18,13 @@ const createUserApi = async(data) => {
     }
 }
 
-export {loginApi,createUserApi}
+const getUserDetailApi = async() => {
+    try{
+      const response = await axiosInstance.get("/profile/")
+      return response
+    }catch(err){
+        throw err
+    }
+}
+
+export {loginApi,createUserApi,getUserDetailApi}
