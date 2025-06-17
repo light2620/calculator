@@ -130,10 +130,6 @@ text-align: left;
     text-align: center;
 }
 
-
-
-
-
 .data div:last-child label{
    width: auto;
    gap: 0px;
@@ -144,7 +140,13 @@ text-align: left;
    width: 165px;
 }
 
+@media(max-width : 1800px){
 
+    .data div:last-child{
+        gap: 0;
+        padding: 0;
+    }
+}
 @media(max-width: 1300px){
     .data div:last-child{
         gap: 0;
