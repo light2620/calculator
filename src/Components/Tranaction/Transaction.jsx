@@ -9,7 +9,7 @@ const TransactionsTable = () => {
   const allTransactions = data?.auction?.value || [];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [columnSorts, setColumnSorts] = useState({});
 
   const columns = [
@@ -152,18 +152,45 @@ const TransactionsTable = () => {
         </table>
       </div>
 
-      <div className="pagination">
-        <span>{`${indexOfFirstRow + 1}-${Math.min(indexOfLastRow, sortedData.length)} of ${sortedData.length}`}</span>
-        <div className="pagination-controls">
-          <button onClick={prevPage} disabled={currentPage === 1}>
-            &lt;
-          </button>
-          <span>{`${currentPage}/${totalPages}`}</span>
-          <button onClick={nextPage} disabled={currentPage === totalPages}>
-            &gt;
-          </button>
-        </div>
-      </div>
+     <div className="pagination">
+  <span>{`${indexOfFirstRow + 1}-${Math.min(indexOfLastRow, sortedData.length)} of ${sortedData.length}`}</span>
+
+
+<div className="data-control-container">
+
+  <div className="results-per-page">
+    <label htmlFor="rowsPerPage">Results per page:</label>
+    <select
+      id="rowsPerPage"
+      value={rowsPerPage}
+      onChange={(e) => {
+        setRowsPerPage(Number(e.target.value));
+        setCurrentPage(1); // Reset to first page when changing per-page
+      }}
+    >
+      {[10, 50, 90, 130].map((val) => (
+        <option key={val} value={val}>
+          {val}
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div className="pagination-controls">
+    <button onClick={prevPage} disabled={currentPage === 1}>
+      &lt;
+    </button>
+    <span>{`${currentPage}/${totalPages}`}</span>
+    <button onClick={nextPage} disabled={currentPage === totalPages}>
+      &gt;
+    </button>
+  </div>
+</div>
+
+
+
+
+</div>
     </div>
   );
 };

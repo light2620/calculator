@@ -23,7 +23,7 @@ const AddDataSection = () => {
     { label: "MSRP/Suggested Retail Price", value: "" },
   ]);
    const data = useSelector((state) => state.allData.data);
-
+   console.log(data)
   const handleFileUpload = async (selectedFile) => {
   if (!selectedFile) return;
 
@@ -83,7 +83,7 @@ const AddDataSection = () => {
           case "Wholesale JD" : 
           return {...field,value: data?.wholesale_jd?.value}
           case "MSRP/Suggested Retail Price" : 
-          return {...field,value: data?.msrp?.value}
+          return {...field,value: data?.cr?.value?.MSRP}
           default : 
         return field;
         }
