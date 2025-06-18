@@ -15,7 +15,7 @@ const Calculator = () => {
   // Ref for the MMR Adjustments section to detect visibility
   const mmrAdjustmentsRef = useRef(null);
   const isMmrSectionVisible = useIntersectionObserver(mmrAdjustmentsRef, {
-    threshold: 0.3,
+    threshold: 0.5,
   });
 
   // --- FIX: Create a ref for the draggable node to avoid findDOMNode error ---
