@@ -109,6 +109,16 @@ color : #1E1E1E;
     border-bottom : 1px solid #B3B3B3;
 }
 
+.input-error {
+  border: 1px solid red !important;
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 2px;
+}
+
 .google-auth button{
     width: 100%;
     border: 2px solid #001B4C;

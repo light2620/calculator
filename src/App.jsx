@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser, setLoading } from './Redux/userSlice';
 import { isTokenExpired } from './utility/isTokenExpired';
 import LoadingScreen from './utils/LoadingScreen/LoadingScreen';
+import  { Toaster } from 'react-hot-toast';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
     <div className="app">
       <Navbar />
       <Outlet />
+      <Toaster />
     </div>
   );
 }

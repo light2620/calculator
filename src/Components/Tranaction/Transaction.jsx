@@ -145,7 +145,7 @@ const TransactionsTable = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length}>No matching records found</td>
+                <td className="no-data" colSpan={columns.length}>No matching records found</td>
               </tr>
             )}
           </tbody>

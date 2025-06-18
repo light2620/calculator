@@ -55,6 +55,7 @@ const AddDataSection = () => {
     try {
       setLoading(true);
       const response = await axiosInstance.post("process-document/", formData);
+      
        dispatch(setAllData(response.data));
 
     } catch (err) {

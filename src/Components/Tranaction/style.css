@@ -84,6 +84,12 @@
   padding: 12px;
   white-space: nowrap;
 }
+.no-data{
+  color: #999;
+  font-size: 16px;
+  padding: 40px 0;
+  text-align: center;
+}
 
 .transactions-table tbody tr:nth-child(even) {
   background-color: #F5F6FF;

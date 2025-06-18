@@ -7,17 +7,26 @@ import { loginApi } from "../../Apis/authApis";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../Redux/userSlice";
 import { getUserDetailApi } from "../../Apis/authApis";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const [loginCredentials,setLoginCredentials] = useState({
       email : "",
       password : "",
     })
+const [errors, setErrors] = useState({
+  email: "",
+  password: "",
+});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleChange = (e) => {
+
         const {name , value} = e.target;
+        setErrors((prev) => ({
+          ...prev , [name] : ""
+        }))
         setLoginCredentials((prev) => ({
   ...prev,
   [name]: value,
@@ -26,16 +35,25 @@ const Login = () => {
 
   const hanldesubmit = async (e) => {
   e.preventDefault();
+  const newErrors = {
+    email: loginCredentials.email ? "" : "Email is required",
+    password: loginCredentials.password ? "" : "Password is required",
+  };
+
+  setErrors(newErrors);
+
+  // Stop submission if there are validation errors
+  if (newErrors.email || newErrors.password) return;
+
   try {
     setLoading(true);
     const response = await loginApi(loginCredentials);
-
+    
     const token = response.data.access;
     localStorage.setItem("Authorization", `Bearer ${token}`);
 
-    // 👇 Immediately fetch user and set in redux to avoid flicker
     const userResponse = await getUserDetailApi();
-    dispatch(setUser(userResponse?.data)); // 👈 This solves the issue
+    dispatch(setUser(userResponse?.data));
 
     setLoginCredentials({
       email: "",
@@ -44,11 +62,12 @@ const Login = () => {
 
     navigate("/");
   } catch (err) {
-    console.log(err);
+    toast.error(err?.response?.data.error || "something get wrong ")
   } finally {
     setLoading(false);
   }
 };
+
 
 
   return (
@@ -59,29 +78,34 @@ const Login = () => {
           <h1>Sign Into Your Account</h1>
           <form action="" onSubmit={hanldesubmit}>
             <div className="auth-form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                id='email'
-                name = "email"
-                value = {loginCredentials.email}
-                placeholder='Your Email Address'
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
+  <label htmlFor="email">Email</label>
+  <input
+    type="text"
+    id="email"
+    name="email"
+    value={loginCredentials.email}
+    placeholder="Your Email Address"
+    onChange={handleChange}
+    className={errors.email ? "input-error" : ""}
+  />
+  {errors.email && <small className="error-message">{errors.email}</small>}
+</div>
 
-            <div className="auth-form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id='password'
-                name = "password"
-                value = {loginCredentials.password}
-                onChange={(e) => handleChange(e)}
-                placeholder='The Password You Picked'
-              />
-              <p>Forgot password?</p>
-            </div>
+<div className="auth-form-group">
+  <label htmlFor="password">Password</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    value={loginCredentials.password}
+    onChange={handleChange}
+    placeholder="The Password You Picked"
+    className={errors.password ? "input-error" : ""}
+  />
+  {errors.password && <small className="error-message">{errors.password}</small>}
+  <p>Forgot password?</p>
+</div>
+
             <div className="auth-button">
               <button
                disabled={loading}>

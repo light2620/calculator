@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import "./style.css";
 import OfferSlider from "../OfferSlider/OfferSlider";
 import { useSelector } from "react-redux";
-import { calculaterApi } from "../../Apis/calculatorApi";
-import { msrpCalculationApi } from "../../Apis/calculatorApi";
+import { calculaterApi, msrpCalculationApi } from "../../Apis/calculatorApi";
+
 const Calculator = () => {
   const data = useSelector((state) => state.allData.data);
 
@@ -38,19 +38,34 @@ const Calculator = () => {
 
   const [msrp, setMsrp] = useState({
     msrp: "",
-    adjustment: ""
+    adjustment: "",
   });
+
+  // Helper: format number to 2 decimals
+  const formatNumber = (num) => {
+    return !isNaN(num) && num !== null && num !== undefined
+      ? Number(num).toFixed(2)
+      : "0.00";
+  };
+
+  // Helper: format currency with $ prefix, avoiding duplicate $
+  const formatCurrency = (value, hasSignFromBackend = false) => {
+    if (value === "" || value === null || value === undefined) return "$0.00";
+
+    if (hasSignFromBackend) {
+      if (typeof value === "string" && value.trim().startsWith("$")) return value;
+      return `$${formatNumber(value)}`;
+    }
+
+    const valStr = value.toString();
+    if (valStr.startsWith("$")) return valStr;
+    return `$${formatNumber(value)}`;
+  };
 
   const areAllFieldsFilled = (obj) => {
     return Object.values(obj).every(
       (val) => val !== "" && val !== null && val !== undefined
     );
-  };
-
-  const formatNumber = (num) => {
-    return !isNaN(num) && num !== null && num !== undefined
-      ? Number(num).toFixed(2)
-      : "0.00";
   };
 
   const handleChange = async (e) => {
@@ -78,13 +93,13 @@ const Calculator = () => {
 
     setInitialResult((prev) => {
       const updated = { ...prev };
-      updated.offer_after_recon = data?.offer_after_recon?.value;
-      updated.sold_at_auction = data?.sold_at_auction?.value;
-      updated.total_cost = data?.total_cost?.value;
-      updated.roi = data?.roi?.value;
-      updated.adjusted_offer_back_of_jd = data?.adjusted_offer_back_of_jd?.value;
-      updated.offer_auction_gap = data?.offer_auction_gap?.value;
-      updated.offer = data?.fluctuation?.value;
+      updated.offer_after_recon = data?.offer_after_recon?.value ?? "";
+      updated.sold_at_auction = data?.sold_at_auction?.value ?? "";
+      updated.total_cost = data?.total_cost?.value ?? "";
+      updated.roi = data?.roi?.value ?? "";
+      updated.adjusted_offer_back_of_jd = data?.adjusted_offer_back_of_jd?.value ?? "";
+      updated.offer_auction_gap = data?.offer_auction_gap?.value ?? "";
+      updated.offer = data?.offer?.value ?? data?.fluctuation?.value ?? "";
       return updated;
     });
   }, [data]);
@@ -94,13 +109,13 @@ const Calculator = () => {
 
     setCalculatorData((prev) => {
       const updated = { ...prev };
-      updated.jd = data?.wholesale_jd?.value;
-      updated.fees = data?.fees?.value;
-      updated.recon = data?.recon?.value;
-      updated.recon_percent = data?.recon_percent?.value;
-      updated.transportation = data?.transportation_cost?.value;
-      updated.fluctuation = data?.fluctuation?.value;
-      updated.adjust_offer = data?.adjusted_offer?.value;
+      updated.jd = data?.wholesale_jd?.value ?? "";
+      updated.fees = data?.fees?.value ?? "";
+      updated.recon = data?.recon?.value ?? "";
+      updated.recon_percent = data?.recon_percent?.value ?? "";
+      updated.transportation = data?.transportation_cost?.value ?? "";
+      updated.fluctuation = data?.fluctuation?.value ?? "";
+      updated.adjust_offer = data?.adjusted_offer?.value ?? 0;
       return updated;
     });
   }, [data]);
@@ -108,8 +123,14 @@ const Calculator = () => {
   useEffect(() => {
     if (!data) return;
 
+    let msrpValue = data?.cr?.value?.MSRP;
+    if (typeof msrpValue === "string") {
+      msrpValue = msrpValue.replace(/^\$/, ""); // Remove $ if exists
+    }
+
     setMsrp((prev) => ({
-      ...prev, [msrp]: data?.msrp?.value
+      ...prev,
+      msrp: msrpValue ?? "",
     }));
   }, [data]);
 
@@ -117,10 +138,10 @@ const Calculator = () => {
     if (!data) return;
 
     setAdditionalFields({
-      back_of_jd: data?.back_of_jd?.value || "",
-      error_gap: data?.error_gap?.value || "",
-      sold_at_auction: data?.sold_at_auction?.value || "",
-      customer_getting_jd: data?.customer_getting_jd?.value || "",
+      back_of_jd: data?.back_of_jd?.value ?? "",
+      error_gap: data?.error_gap?.value ?? "",
+      sold_at_auction: data?.sold_at_auction?.value ?? "",
+      customer_getting_jd: data?.customer_getting_jd?.value ?? "",
     });
   }, [data]);
 
@@ -130,22 +151,27 @@ const Calculator = () => {
     setMsrp((prev) => {
       return { ...prev, [name]: value };
     });
-    const formData = new FormData();
-    formData.append("msrp", msrp.msrp);
-    formData.append("adjustment", msrp.adjustment);
+
+    // Use the updated msrp values directly from state with a small delay or use useEffect instead if needed.
+    // For now, use a formData with current state values (best effort)
     if (msrp.msrp || msrp.adjustment) {
+      const formData = new FormData();
+      formData.append("msrp", msrp.msrp);
+      formData.append("adjustment", msrp.adjustment);
+
       try {
         const response = await msrpCalculationApi(formData);
-        console.log(response);
+        // Do something with response if needed
       } catch (err) {
         console.log(err);
       }
     }
+  };
 
-  }
   useEffect(() => {
     setCalculation({});
   }, [data]);
+
   const handleClear = () => {
     setCalculatorData({
       jd: "",
@@ -174,12 +200,20 @@ const Calculator = () => {
       adjustment: "",
     });
     setAdditionalFields({
-      back_of_jd: " ",
-      error_gap: " ",
-      sold_at_auction: " ",
-      customer_getting_jd: " ",
+      back_of_jd: "",
+      error_gap: "",
+      sold_at_auction: "",
+      customer_getting_jd: "",
     });
   };
+
+  const renderOfferRange = () => {
+    const offerStart = calculation?.offer ?? data?.offer?.value ?? initialResult.offer ?? "";
+    const offerEnd = calculation?.offer_after_recon ?? data?.offer_after_recon?.value ?? initialResult.offer_after_recon ?? "";
+
+    return `${formatCurrency(offerStart)} - ${formatCurrency(offerEnd)}`;
+  };
+
   return (
     <div className="calculator-container">
       <div className="mmr-adjustments">
@@ -323,13 +357,13 @@ const Calculator = () => {
         <div className="result-calculations">
           <div className="result">
             <h4>Offer Range</h4>
-            <p>{formatNumber(calculation?.offer || initialResult.offer)}</p>
+            <p>{renderOfferRange()}</p>
           </div>
 
           <div className="result">
             <h4>Target Range</h4>
             <p>
-              {formatNumber(
+              {formatCurrency(
                 calculation?.offer_after_recon || initialResult.offer_after_recon
               )}
             </p>
@@ -338,7 +372,7 @@ const Calculator = () => {
           <div className="result">
             <h4>Projected Sale at Auction</h4>
             <p>
-              {formatNumber(
+              {formatCurrency(
                 calculation?.sold_at_auction || initialResult.sold_at_auction
               )}
             </p>
@@ -346,7 +380,7 @@ const Calculator = () => {
 
           <div className="result">
             <h4>Unit Cost</h4>
-            <p>{formatNumber(calculation?.total_cost || initialResult.total_cost)}</p>
+            <p>{formatCurrency(calculation?.total_cost || initialResult.total_cost)}</p>
           </div>
 
           <div className="result">
@@ -357,7 +391,7 @@ const Calculator = () => {
           <div className="result">
             <h4>Back of JD</h4>
             <p>
-              {formatNumber(
+              {formatCurrency(
                 calculation?.adjusted_offer_back_of_jd ||
                 initialResult.adjusted_offer_back_of_jd
               )}
@@ -367,7 +401,7 @@ const Calculator = () => {
           <div className="result">
             <h4>Projected Profit</h4>
             <p>
-              {formatNumber(
+              {formatCurrency(
                 calculation?.offer_auction_gap || initialResult.offer_auction_gap
               )}
             </p>
@@ -381,14 +415,29 @@ const Calculator = () => {
         </div>
 
         <div className="mmr-inputs">
-          <div className="mmr-data-input">
+          <div className="mmr-data-input msrp-input">
             <label htmlFor="msrp-list-price">MSRP/Suggested List Price</label>
-            <input type="number" id="msrp-list-price" value={msrp.msrp} name="msrp" onChange={hanldeMsrpChange} />
+            <div className="input-with-prefix">
+              <input
+                type="string"
+                id="msrp-list-price"
+                value={msrp.msrp || ""}
+                name="msrp"
+                onChange={hanldeMsrpChange}
+                step="0.01"
+              />
+            </div>
           </div>
 
           <div className="mmr-data-input">
             <label htmlFor="adjustment">Adjustment</label>
-            <input type="number" id="adjustment" onChange={hanldeMsrpChange} name="adjustment" value={msrp.adjustment} />
+            <input
+              type="number"
+              id="adjustment"
+              onChange={hanldeMsrpChange}
+              name="adjustment"
+              value={msrp.adjustment ?? ""}
+            />
           </div>
         </div>
       </div>

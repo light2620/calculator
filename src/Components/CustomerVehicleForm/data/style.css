@@ -31,7 +31,8 @@
   text-align: left;
       background-color: #fff;
     padding: 10px;
-    height: 40px;
+    min-height: 40px;
+    height: auto;
     border-radius: 4px;
     border: 1px solid #BCDDFF;
     display: flex;

@@ -155,10 +155,11 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 20px 30px;
+  padding: 10px;
   border: 0.5px solid #E0C0C0;
   border-radius: 10px;
   background: #02266B;
+  
 }
 
 .result h4 {
@@ -171,6 +172,7 @@
   font-weight: 600;
   font-size: 24px;
   color: #FFFFFF;
+  text-align: center;
 }
 
 .result-calculations > :last-child {
@@ -241,3 +243,5 @@ font-size: 18px;
     gap: 2px;
   }
 }
+
+

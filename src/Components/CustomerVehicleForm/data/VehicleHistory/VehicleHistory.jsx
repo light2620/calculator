@@ -49,25 +49,44 @@ const VehicleHistory = () => {
       prev.map(field => {
         switch (field.label) {
           case "Lead Date":
-            return { ...field, value: data?.vehicle_type?.value  };
+            return { ...field, value: data?.cr?.value["Deal Date"]  };
           case "Vehicle Type":
-            return { ...field, value: data?.vehicle_type?.value  };
-          case "Vehicle Type":
-            return { ...field, value: data?.vehicle_type?.value  };
-          case 'Year':
-             return {...field, value : data?.vehicle_year?.value };
-          case 'Book Range':
-             return {...field, value : data?.our_book_range?.value };
-          case 'Make':
-             return {...field, value : data?.make?.value };
+            return { ...field, value: data?.cr?.value["Type"]  };
+          case "Category":
+            return { ...field, value: data?.cr?.value["Category"]  };
+          case 'Source':
+             return {...field, value : data?.cr?.value["Source"] };
+          case 'Customer Info':
+             return {...field, value : data?.cr?.value["Customer"]  };
+          case 'CS Date':
+             return {...field, value : data?.cr?.value["CR Date"] };
+           case 'Year':
+             return {...field, value : data?.cr?.value["Year"] };
+           case 'Make':
+             return {...field, value : data?.cr?.value["Make"] };
            case 'Series':
-             return {...field, value : data?.series?.value };
+             return {...field, value : data?.cr?.value["Series"] };
            case 'Model':
-             return {...field, value : data?.trim_model_number?.value };
-           case 'Customer Info':
-             return {...field, value : data?.name?.value };
-           case 'Source':
-             return {...field, value : data?.utm_source?.value };
+             return {...field, value : data?.cr?.value["Model"] };
+           case 'Appraisal Date':
+             return {...field, value : data?.cr?.value["Appraisal Date"]};
+             case 'Length in Feet':
+             return {...field, value : data?.cr?.value["Length in Feet"] }
+             case 'Length in Feet':
+             return {...field, value : data?.cr?.value["Appraisal Date"] }
+             case 'Width in Feet':
+             return {...field, value : data?.cr?.value["Width in Feet"] }
+             case 'Number of Slides':
+             return {...field, value : data?.cr?.value["Number of Slides"] }
+             case 'Miles':
+             return {...field, value : data?.cr?.value["Miles"] }
+             case 'Book Range':
+             return {...field, value : data?.cr?.value["Book Range"] }
+             case 'MSRP':
+             return {...field, value : data?.cr?.value["MSRP"] }
+             case 'Reconditioning Notes':
+             return {...field, value : data?.cr?.value["Reconditioning"] }
+
           default:
             return field;
         }
@@ -111,7 +130,7 @@ const VehicleHistory = () => {
         {notes && (
           <div className="form-group full-width">
             <label>{notes.label}</label>
-            <textarea readOnly>{notes.value}</textarea>
+            <textarea readOnly value={notes.value}>{notes.value}</textarea>
           </div>
         )}
       </div>
