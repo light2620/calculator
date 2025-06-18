@@ -56,7 +56,6 @@
    .card{
     display: flex;
     flex-wrap: wrap;
-     gap : 20px;
       row-gap: 30px;    /* only row spacing */
        column-gap: 5.4%; 
           border-top-left-radius: 0;
