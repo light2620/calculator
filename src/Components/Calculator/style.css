@@ -196,8 +196,7 @@
 
 .draggable-modal-wrapper {
   position: fixed; /* Makes it float over the page content */
-  bottom: 50%;    /* Positions it at the bottom */
-  transform: translateX(-50%); /* Centers it horizontally */
+   top: 0%;   /* Positions it at the bottom */
   z-index: 1000;   /* Ensures it's on top of other elements */
   width: 90%;      /* Give it a width relative to the viewport */
  /* But don't let it get too wide on tablets */

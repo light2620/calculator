@@ -15,7 +15,7 @@ const Calculator = () => {
   // Ref for the MMR Adjustments section to detect visibility
   const mmrAdjustmentsRef = useRef(null);
   const isMmrSectionVisible = useIntersectionObserver(mmrAdjustmentsRef, {
-    threshold: 0.5,
+    threshold: 0.4,
   });
 
   // --- FIX: Create a ref for the draggable node to avoid findDOMNode error ---
@@ -330,7 +330,7 @@ const Calculator = () => {
         </div>
       </div>
 
-      <div className="results-container">
+     <div className="results-container">
         <div className="results-header">
           <h4>Results</h4>
           <p>Here are the Results based on your inputs</p>
@@ -425,11 +425,7 @@ const Calculator = () => {
       {areAllFieldsFilled(calculatorData) &&
         isMobile &&
         isMmrSectionVisible && (
-          <Draggable
-            handle=".drag-handle"
-            nodeRef={nodeRef} // Pass the ref to Draggable to prevent findDOMNode error
-          >
-            {/* Attach the same ref to the direct child element */}
+          
             <div ref={nodeRef} className="draggable-modal-wrapper">
               <ResultModal
                 renderOfferRange={renderOfferRange}
@@ -439,7 +435,7 @@ const Calculator = () => {
                 initialResult={initialResult}
               />
             </div>
-          </Draggable>
+          
         )}
     </div>
   );
