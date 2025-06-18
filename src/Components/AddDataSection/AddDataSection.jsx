@@ -23,7 +23,6 @@ const AddDataSection = () => {
     { label: "MSRP/Suggested Retail Price", value: "" },
   ]);
    const data = useSelector((state) => state.allData.data);
-   console.log(data)
   const handleFileUpload = async (selectedFile) => {
   if (!selectedFile) return;
 
