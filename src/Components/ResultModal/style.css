@@ -1,0 +1,54 @@
+/* Add these new styles to your existing CSS file */
+
+
+.mobile-results-header{
+   display: flex;
+   flex-direction: column;
+   color : white;
+   align-items: center;
+}
+
+.mobile-results-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  background: linear-gradient(124.83deg, #011B4C 0%, #02266B 98.43%);   
+  border: 1px solid #4a6a9e;
+}
+
+.drag-handle {
+  cursor: move; /* Indicates to the user that this area is draggable */
+  padding-bottom: 10px;
+}
+
+.drag-handle p {
+  color: #a7c0ff !important; /* Make "Drag to move" text distinct */
+  font-size: 12px !important;
+  margin-top: 4px;
+}
+
+/* Your existing styles for .mobile-result-calculations can remain the same */
+.mobile-result-calculations{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+.mobile-result-calculations .result h4 {
+  font-size: 12px;
+}
+.mobile-result-calculations .result p{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Hide the main results container on mobile to avoid duplication */
+
+
+/* You might want to rename .mobile-results-container to .mobile-results-modal in your CSS to avoid confusion */

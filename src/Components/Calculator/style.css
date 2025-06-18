@@ -184,6 +184,25 @@
   font-size: 22px;
   color: #4F4F4F;
 }
+.mmr-data-input input {
+    width: 100%;
+  }
+.extra-mmr-inputs{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+}
+
+.draggable-modal-wrapper {
+  position: fixed; /* Makes it float over the page content */
+  bottom: 50%;    /* Positions it at the bottom */
+  transform: translateX(-50%); /* Centers it horizontally */
+  z-index: 1000;   /* Ensures it's on top of other elements */
+  width: 90%;      /* Give it a width relative to the viewport */
+ /* But don't let it get too wide on tablets */
+}
+
 
 @media (max-width: 1300px) {
   .calculator-container {
@@ -193,14 +212,28 @@
     padding: 0;
   }
 
+  /* Shared styles for all containers */
   .mmr-adjustments,
   .results-container,
   .msrp-calculation-container {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    grid-column: 1 / -1; /* Make all containers take full width */
     width: 100%;
     padding: 20px 15px;
   }
+  
+  /* --- CHANGE STARTS HERE --- */
+  /* Define the new order for mobile view */
+  .results-container {
+    grid-row: 1; /* First */
+  }
+  .mmr-adjustments {
+    grid-row: 2; /* Second */
+  }
+  .msrp-calculation-container {
+    grid-row: 3; /* Third */
+  }
+  /* --- CHANGE ENDS HERE --- */
+
 
   .mmr-inputs {
     grid-template-columns: 1fr;
@@ -241,7 +274,6 @@ font-size: 18px;
   .result{
     padding: 10px;
     gap: 2px;
+    justify-content: center;
   }
 }
-
-

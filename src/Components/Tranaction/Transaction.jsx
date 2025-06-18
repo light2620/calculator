@@ -3,7 +3,6 @@ import "./style.css";
 import { useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
-
 const TransactionsTable = () => {
   const data = useSelector((state) => state.allData.data);
   const allTransactions = data?.auction?.value || [];
