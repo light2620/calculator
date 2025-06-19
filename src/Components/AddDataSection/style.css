@@ -10,6 +10,21 @@
 .data-input-section{
     display: flex;
     gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #001B4C26;
+}
+
+.vehicle-detial{
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+
+}
+
+.vehicle-detial p{
+font-weight: 600;
+font-size: 20px;
+ color : #161616
 }
 
 .input-container{
@@ -228,7 +243,15 @@ font-weight: 600;
 font-size: 14px;
 }
 
+.info p{
+    background-color:  white;
+    text-align: left;
+    border: 1px solid #BCDDFF;
+    justify-content: flex-start;
 }
+}
+
+
 
 
 

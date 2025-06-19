@@ -1,0 +1,12 @@
+.mobilie-minimize-icon{
+    width: 25px ;
+    height: 25px;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #E0C0C0;
+    border-radius: 50%;
+    color: #E8E8E8;
+    font-size: 20px;
+}

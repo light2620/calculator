@@ -1,0 +1,24 @@
+.minimize-icon{
+  width: 55px;
+  height: 55px;
+  background-color: #F3F9FF;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+
+.minimize-icon p{
+    width: 80%;
+    border: 4px solid #0014A4;
+    border-radius: 10px;
+}
+
+@media(max-width: 796px){
+    .minimize-icon{
+      display: none;
+    }
+}

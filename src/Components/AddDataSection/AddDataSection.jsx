@@ -6,8 +6,10 @@ import { setAllData } from "../../Redux/allDataSlice";
 import { useSelector } from 'react-redux';
 import useIsMobile from "../../CustomHook/isMobile";
 import 'primeicons/primeicons.css';
+import MinimizeIcon from "../../utils/minimizeIcon/MinimizeIcon";
 const AddDataSection = () => {
   const [email, setEmail] = useState("opa.gee@gmail.com");
+  
   const [loading,setLoading] = useState(false);
   const [uploadLoading,setUploadLoading] = useState(false);
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const AddDataSection = () => {
     { label: "MSRP/Suggested Retail Price", value: "" },
   ]);
    const data = useSelector((state) => state.allData.data);
+   console.log(data)
   const handleFileUpload = async (selectedFile) => {
   if (!selectedFile) return;
 
@@ -93,6 +96,7 @@ const AddDataSection = () => {
 
   return (
     <div className="add-data-container">
+      
       <div className="data-input-section">
         <div className="input-container">
           <p>Pick your data point</p>
@@ -126,7 +130,9 @@ const AddDataSection = () => {
           />
         </div>
       </div>
-
+      <div className="vehicle-detial">
+        <p>Vehicle Detail</p>
+      </div>
       <div className="data">
         {dataFields.map((field, id) => (
           <div className="data-item" key={id}>
@@ -137,6 +143,7 @@ const AddDataSection = () => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

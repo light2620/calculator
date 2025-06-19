@@ -39,3 +39,10 @@ canvas {
   font-size: 18px;
   padding: 40px 0;
 }
+
+.char-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

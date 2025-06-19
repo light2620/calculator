@@ -2,7 +2,8 @@
 
 import './style.css';
 
-const LoadingScreen = () => {
+const LoadingScreen = ({isMinimize}) => {
+  
   return (
     <div className="loading-screen">
       <div className="spinner" />

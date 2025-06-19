@@ -28,8 +28,9 @@ const Homes = () => {
     <div className="main-content">
       <h1>RV Modeling App</h1>
       <AddDataSection />
-      <CustomerVehicleForm />
+      
       <Calculator />
+      <CustomerVehicleForm />
       <TransactionsTable />
       <div className="graph">
         <JDTrendChart crData={jdData} />

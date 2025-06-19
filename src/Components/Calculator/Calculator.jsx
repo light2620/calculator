@@ -6,16 +6,18 @@ import { calculaterApi, msrpCalculationApi } from "../../Apis/calculatorApi";
 import ResultModal from "../ResultModal/ResultModal";
 import useIsMobile from "../../CustomHook/isMobile";
 import Draggable from "react-draggable";
+import MobileMinimize from "../../utils/MobileMinimize/MobileMinimize";
 import useIntersectionObserver from "../../CustomHook/useIntersectionObserver";
 
 const Calculator = () => {
   const data = useSelector((state) => state.allData.data);
+  const [isMinimize,setIsMinimize] = useState(false);
   const isMobile = useIsMobile();
 
   // Ref for the MMR Adjustments section to detect visibility
   const mmrAdjustmentsRef = useRef(null);
   const isMmrSectionVisible = useIntersectionObserver(mmrAdjustmentsRef, {
-    threshold: 0.4,
+    threshold: 0.6,
   });
 
   // --- FIX: Create a ref for the draggable node to avoid findDOMNode error ---
@@ -134,21 +136,16 @@ const Calculator = () => {
   }, [data]);
 
   useEffect(() => {
-  if (!data) return;
+    if (!data) return;
 
-  let msrpValue = data?.cr?.value?.MSRP;
-
-  if (typeof msrpValue === "string") {
-    msrpValue = msrpValue.replace(/^\$/, ""); // Remove leading $
-  }
-
-  const parsedValue = isNaN(Number(msrpValue)) ? "" : Number(msrpValue);
-
-  setMsrp((prev) => ({
-    ...prev,
-    msrp: parsedValue,
-  }));
-}, [data]);
+    let msrpValue = data?.cr?.value?.MSRP;
+    console.log(msrpValue)
+  
+    setMsrp((prev) => ({
+      ...prev,
+      msrp: msrpValue,
+    }));
+  }, [data]);
 
   useEffect(() => {
     if (!data) return;
@@ -329,13 +326,17 @@ const Calculator = () => {
           </div>
         </div>
       </div>
-
-     <div className="results-container">
+     
+       <div className="results-container">
+        { isMobile && <div className="mobile-minimize-container">
+          <MobileMinimize isMinimize={isMinimize} setIsMinimize={setIsMinimize} />
+        </div>}
+        
         <div className="results-header">
           <h4>Results</h4>
           <p>Here are the Results based on your inputs</p>
         </div>
-        <div className="result-calculations">
+        {!isMinimize && <div className="result-calculations">
           <div className="result">
             <h4>Offer Range</h4>
             <p>{renderOfferRange()}</p>
@@ -378,19 +379,45 @@ const Calculator = () => {
               )}
             </p>
           </div>
-          <div className="result">
-            <h4>Projected Profit</h4>
-            <p>
-              {formatCurrency(
-                calculation?.offer_auction_gap ||
-                  initialResult.offer_auction_gap
-              )}
-            </p>
+          <div className="last-container">
+            <div className="result">
+              <h4>Projected Profit</h4>
+              <p>
+                {formatCurrency(
+                  calculation?.offer_auction_gap ||
+                    initialResult.offer_auction_gap
+                )}
+              </p>
+            </div>
+
+            <div className="result">
+                 <h4>MSRP/Suggested List Price</h4>
+                 <p>
+                    {formatCurrency(
+                  msrp.msrp || "$0"
+                )}
+                 </p>
+            </div>
+
+            <div className="result">
+                 <h4>Short Term Depreciation</h4>
+                 <p>
+                    {formatCurrency(
+                  msrp.msrp || "$0"
+                )}
+                  
+                 </p>
+            </div>
           </div>
-        </div>
+        </div>}
+        
       </div>
 
-      <div className="msrp-calculation-container">
+     
+     
+
+
+      {/* <div className="msrp-calculation-container">
         <div className="msrp-header">
           <h4>MSRP Calculation</h4>
         </div>
@@ -419,23 +446,21 @@ const Calculator = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* --- UPDATED DRAGGABLE MODAL IMPLEMENTATION --- */}
       {areAllFieldsFilled(calculatorData) &&
         isMobile &&
         isMmrSectionVisible && (
-          
-            <div ref={nodeRef} className="draggable-modal-wrapper">
-              <ResultModal
-                renderOfferRange={renderOfferRange}
-                formatCurrency={formatCurrency}
-                calculation={calculation}
-                formatNumber={formatNumber}
-                initialResult={initialResult}
-              />
-            </div>
-          
+          <div ref={nodeRef} className="draggable-modal-wrapper">
+            <ResultModal
+              renderOfferRange={renderOfferRange}
+              formatCurrency={formatCurrency}
+              calculation={calculation}
+              formatNumber={formatNumber}
+              initialResult={initialResult}
+            />
+          </div>
         )}
     </div>
   );

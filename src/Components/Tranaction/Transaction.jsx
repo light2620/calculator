@@ -3,7 +3,9 @@ import "./style.css";
 import { useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
+import MinimizeIcon from "../../utils/minimizeIcon/MinimizeIcon";
 const TransactionsTable = () => {
+  const [isMinimize,setIsMinimize] = useState(false);
   const data = useSelector((state) => state.allData.data);
   const allTransactions = data?.auction?.value || [];
 
@@ -20,11 +22,11 @@ const TransactionsTable = () => {
     { key: "Color", label: "Ext Color", type: "string" },
     { key: "Series", label: "Type", type: "string" },
     { key: "Region", label: "Region", type: "string" },
-    { key: "Auction Location", label: "Auction", type: "string" }
+    { key: "Auction Location", label: "Auction", type: "string" },
   ];
 
   const handleColumnSort = (key, type) => {
-    setColumnSorts(prev => {
+    setColumnSorts((prev) => {
       const current = prev[key] || "none";
       let next = "none";
       if (current === "none") next = "asc";
@@ -35,37 +37,41 @@ const TransactionsTable = () => {
     });
   };
 
- const applySorting = (data) => {
-  let result = [...data];
-  const activeSorts = Object.entries(columnSorts).filter(([_, dir]) => dir !== "none");
+  const applySorting = (data) => {
+    let result = [...data];
+    const activeSorts = Object.entries(columnSorts).filter(
+      ([_, dir]) => dir !== "none"
+    );
 
-  activeSorts.forEach(([key, direction]) => {
-    const column = columns.find(col => col.key === key);
-    const type = column?.type;
+    activeSorts.forEach(([key, direction]) => {
+      const column = columns.find((col) => col.key === key);
+      const type = column?.type;
 
-    result.sort((a, b) => {
-      let valA = a[key] ?? "";
-      let valB = b[key] ?? "";
+      result.sort((a, b) => {
+        let valA = a[key] ?? "";
+        let valB = b[key] ?? "";
 
-      if (type === "number") {
-        // Remove commas, currency symbols etc.
-        const numA = parseFloat(String(valA).replace(/[^\d.-]/g, "")) || 0;
-        const numB = parseFloat(String(valB).replace(/[^\d.-]/g, "")) || 0;
-        return direction === "asc" ? numA - numB : numB - numA;
-      }
+        if (type === "number") {
+          // Remove commas, currency symbols etc.
+          const numA = parseFloat(String(valA).replace(/[^\d.-]/g, "")) || 0;
+          const numB = parseFloat(String(valB).replace(/[^\d.-]/g, "")) || 0;
+          return direction === "asc" ? numA - numB : numB - numA;
+        }
 
-      if (type === "string") {
-        const strA = String(valA).toLowerCase();
-        const strB = String(valB).toLowerCase();
-        return direction === "asc" ? strA.localeCompare(strB) : strB.localeCompare(strA);
-      }
+        if (type === "string") {
+          const strA = String(valA).toLowerCase();
+          const strB = String(valB).toLowerCase();
+          return direction === "asc"
+            ? strA.localeCompare(strB)
+            : strB.localeCompare(strA);
+        }
 
-      return 0;
+        return 0;
+      });
     });
-  });
 
-  return result;
-};
+    return result;
+  };
 
   const sortedData = applySorting(allTransactions);
 
@@ -74,16 +80,17 @@ const TransactionsTable = () => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = sortedData.slice(indexOfFirstRow, indexOfLastRow);
 
-  const nextPage = () => currentPage < totalPages && setCurrentPage(prev => prev + 1);
-  const prevPage = () => currentPage > 1 && setCurrentPage(prev => prev - 1);
+  const nextPage = () =>
+    currentPage < totalPages && setCurrentPage((prev) => prev + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage((prev) => prev - 1);
 
   const exportToCSV = () => {
     const csvRows = [];
-    const headers = columns.map(col => col.label);
+    const headers = columns.map((col) => col.label);
     csvRows.push(headers.join(","));
 
-    sortedData.forEach(item => {
-      const row = columns.map(col => `"${item[col.key] || "-"}"`).join(",");
+    sortedData.forEach((item) => {
+      const row = columns.map((col) => `"${item[col.key] || "-"}"`).join(",");
       csvRows.push(row);
     });
 
@@ -99,18 +106,25 @@ const TransactionsTable = () => {
     <div className="transactions-container">
       <div className="table-header">
         <h2>Transactions</h2>
-        <div className="actions">
-          <button className="filter-btn">
-            <FaFilter style={{ marginRight: "6px" }} />
-            Filters
-          </button>
-          <button className="download-btn" onClick={exportToCSV}>
-            <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
-            Download
-          </button>
+        
+         <div className="action-container-t">
+          <div className="actions">
+            <button className="filter-btn">
+              <FaFilter style={{ marginRight: "6px" }} />
+              Filters
+            </button>
+            <button className="download-btn" onClick={exportToCSV}>
+              <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
+              Download
+            </button>
+          </div>
+
+          <MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />
         </div>
       </div>
 
+     {
+      !isMinimize && 
       <div className="table-container">
         <table className="transactions-table">
           <thead>
@@ -118,12 +132,19 @@ const TransactionsTable = () => {
               {columns.map((col, idx) => {
                 const activeSort = columnSorts[col.key] || "none";
                 return (
-                  <th key={idx} onClick={() => handleColumnSort(col.key, col.type)}>
+                  <th
+                    key={idx}
+                    onClick={() => handleColumnSort(col.key, col.type)}
+                  >
                     <div className="th-content">
                       {col.label}
                       <LuArrowDownUp
                         className={`col-filter-icon ${
-                          activeSort === "asc" ? "asc" : activeSort === "desc" ? "desc" : ""
+                          activeSort === "asc"
+                            ? "asc"
+                            : activeSort === "desc"
+                            ? "desc"
+                            : ""
                         }`}
                       />
                     </div>
@@ -144,52 +165,53 @@ const TransactionsTable = () => {
               ))
             ) : (
               <tr>
-                <td className="no-data" colSpan={columns.length}>No matching records found</td>
+                <td className="no-data" colSpan={columns.length}>
+                  No matching records found
+                </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+      
+     } 
 
-     <div className="pagination">
-  <span>{`${indexOfFirstRow + 1}-${Math.min(indexOfLastRow, sortedData.length)} of ${sortedData.length}`}</span>
+      <div className="pagination">
+        <span>{`${indexOfFirstRow + 1}-${Math.min(
+          indexOfLastRow,
+          sortedData.length
+        )} of ${sortedData.length}`}</span>
 
+        <div className="data-control-container">
+          <div className="results-per-page">
+            <label htmlFor="rowsPerPage">Results per page:</label>
+            <select
+              id="rowsPerPage"
+              value={rowsPerPage}
+              onChange={(e) => {
+                setRowsPerPage(Number(e.target.value));
+                setCurrentPage(1); // Reset to first page when changing per-page
+              }}
+            >
+              {[10, 50, 90, 130].map((val) => (
+                <option key={val} value={val}>
+                  {val}
+                </option>
+              ))}
+            </select>
+          </div>
 
-<div className="data-control-container">
-
-  <div className="results-per-page">
-    <label htmlFor="rowsPerPage">Results per page:</label>
-    <select
-      id="rowsPerPage"
-      value={rowsPerPage}
-      onChange={(e) => {
-        setRowsPerPage(Number(e.target.value));
-        setCurrentPage(1); // Reset to first page when changing per-page
-      }}
-    >
-      {[10, 50, 90, 130].map((val) => (
-        <option key={val} value={val}>
-          {val}
-        </option>
-      ))}
-    </select>
-  </div>
-
-  <div className="pagination-controls">
-    <button onClick={prevPage} disabled={currentPage === 1}>
-      &lt;
-    </button>
-    <span>{`${currentPage}/${totalPages}`}</span>
-    <button onClick={nextPage} disabled={currentPage === totalPages}>
-      &gt;
-    </button>
-  </div>
-</div>
-
-
-
-
-</div>
+          <div className="pagination-controls">
+            <button onClick={prevPage} disabled={currentPage === 1}>
+              &lt;
+            </button>
+            <span>{`${currentPage}/${totalPages}`}</span>
+            <button onClick={nextPage} disabled={currentPage === totalPages}>
+              &gt;
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

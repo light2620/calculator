@@ -1,8 +1,11 @@
 import { Chart } from 'primereact/chart';
+import { useState } from 'react';
 import { useMemo } from 'react';
+import MinimizeIcon from '../../utils/minimizeIcon/MinimizeIcon';
 import './style.css';
 
 const JDTrendChart = ({ crData }) => {
+  const [isMinimize,setIsMinimize] = useState(false);
   const { labels, values } = useMemo(() => {
     const years = [];
     const vals = [];
@@ -90,8 +93,12 @@ const JDTrendChart = ({ crData }) => {
 
   return (
     <div className="jd-chart-card">
-      <h4 className="chart-title">JD Trend</h4>
-      <div className="chart-wrapper">
+      <div className="char-header">
+        <h4 className="chart-title">JD Trend</h4>
+        <MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />
+      </div>
+      
+      {!isMinimize && <div className="chart-wrapper">
         {labels.length && values.length ? (
           <div className="chart-scroll-container">
             <Chart
@@ -104,7 +111,7 @@ const JDTrendChart = ({ crData }) => {
         ) : (
           <div className="no-data">No Data Available</div>
         )}
-      </div>
+      </div> }
     </div>
   );
 };
