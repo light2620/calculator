@@ -4,9 +4,13 @@ import { useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
 import MinimizeIcon from "../../utils/minimizeIcon/MinimizeIcon";
+import { IoSearch } from "react-icons/io5";
+import useIsMobile from "../../CustomHook/isMobile";
+import MobileMinimize from "../../utils/MobileMinimize/MobileMinimize";
 const TransactionsTable = () => {
   const [isMinimize,setIsMinimize] = useState(false);
   const data = useSelector((state) => state.allData.data);
+  const isMobile = useIsMobile();
   const allTransactions = data?.auction?.value || [];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -106,9 +110,17 @@ const TransactionsTable = () => {
     <div className="transactions-container">
       <div className="table-header">
         <h2>Transactions</h2>
-        
+       {!isMobile && <div className="search-filter">
+          <input 
+          type="text" 
+          name="search-text" 
+          id="search-text"
+          placeholder="Search"
+          />
+            <IoSearch size={25} color="#595959"/>
+        </div>}
          <div className="action-container-t">
-          <div className="actions">
+          {!isMobile && <div className="actions">
             <button className="filter-btn">
               <FaFilter style={{ marginRight: "6px" }} />
               Filters
@@ -117,12 +129,26 @@ const TransactionsTable = () => {
               <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
               Download
             </button>
-          </div>
+            {isMobile && <div className="actions">
+              <FaFilter style={{marginRight: "6px"}} />
+              <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
+            </div> }
+          </div>}
 
-          <MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />
+           
+
+          {isMobile ? <MobileMinimize setIsMinimize={setIsMinimize} isMinimize={isMinimize} />:<MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />}
         </div>
       </div>
-
+{isMobile && <div className="search-filter">
+          <input 
+          type="text" 
+          name="search-text" 
+          id="search-text"
+          placeholder="Search"
+          />
+            <IoSearch size={25} color="#595959"/>
+        </div>}
      {
       !isMinimize && 
       <div className="table-container">

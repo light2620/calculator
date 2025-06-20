@@ -12,13 +12,19 @@ const vehiclePhotos = [
 ];
 const VehiclePhotos = () => {
   return (
-    <div className="vehicle-photos-card">
-     
-            {vehiclePhotos.map((photo, index) => (
+    <div className="vehicle-photo-container">
+      <div className="vehicle-photo-header">
+            <p>Vehicle Photos</p>
+            <button>Upload Vehicle Photos</button>          
+      </div>
+     <div className="vehicle-photos-card">
+{vehiclePhotos.map((photo, index) => (
             <div className="vehicle-photo" key={index}>
                 <img src={photo.src} alt={photo.alt} />
             </div>
             ))}
+     </div>
+            
 
     </div> 
   )

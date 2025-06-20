@@ -2,10 +2,13 @@ import { Chart } from 'primereact/chart';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import MinimizeIcon from '../../utils/minimizeIcon/MinimizeIcon';
+import MobileMinimize from '../../utils/MobileMinimize/MobileMinimize';
+import useIsMobile from '../../CustomHook/isMobile';
 import './style.css';
 
 const JDTrendChart = ({ crData }) => {
   const [isMinimize,setIsMinimize] = useState(false);
+  const isMobile = useIsMobile();
   const { labels, values } = useMemo(() => {
     const years = [];
     const vals = [];
@@ -95,7 +98,7 @@ const JDTrendChart = ({ crData }) => {
     <div className="jd-chart-card">
       <div className="char-header">
         <h4 className="chart-title">JD Trend</h4>
-        <MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />
+        {isMobile ? <MobileMinimize setIsMinimize={setIsMinimize} isMinimize={isMinimize} />: <MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />}
       </div>
       
       {!isMinimize && <div className="chart-wrapper">

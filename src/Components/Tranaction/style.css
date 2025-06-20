@@ -13,13 +13,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 .table-header h2{
   color : #4F4F4F;
   font-size: 32px;
   font-weight: 600;
 }
+.search-filter{
+  width: 40%;
+  border: 1px solid #D9D9D9;
+  background-color: #F6F6F6;
+  border-radius: 10px;
+  display: flex;
+  align-items:  center;
+  justify-content: center;
+  padding:10px 10px;
+}
 
+.search-filter input{
+  width: 90%;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  font-family: Poppins;
+font-weight: 500;
+font-size: 16px;
+
+}
 .actions {
   display: flex;
   gap: 10px;
@@ -51,7 +72,6 @@
 .transactions-table {
   width: 100%;
   min-width: 800px;
-  margin-top: 20px;
   font-size: 14px;
   border-collapse: collapse;
 }
@@ -81,7 +101,7 @@
 }
 
 .transactions-table td {
-  padding: 60px;
+  padding: 20px;
   white-space: nowrap;
 }
 .no-data{
@@ -130,8 +150,6 @@ tbody tr{
 .results-per-page {
   display: flex;
   align-items: center;
-
-  margin: 0 16px;
 }
 
 .results-per-page label {
@@ -162,9 +180,15 @@ text-align: right;
   align-items: center;
   gap: 30px;
 }
-@media(max-width: 768px){
-  .actions{
-    flex-direction: column;
+@media(max-width: 796px){
+
+  .search-filter {
+    width: 100%;
+  
+  }
+
+  .search-filter input {
+    width: 100%;
   }
 
   .table-header h2{

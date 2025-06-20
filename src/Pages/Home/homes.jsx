@@ -6,11 +6,12 @@ import Calculator from '../../Components/Calculator/Calculator'
 import TransactionsTable from '../../Components/Tranaction/Transaction'
 import JDTrendChart from '../../Components/Graph/Graph'
 import { useSelector } from 'react-redux'
-
+import useIsMobile from '../../CustomHook/isMobile'
 const Homes = () => {
   const { user } = useSelector((state) => state.user);
   const data = useSelector((state) => state.allData.data);
   const cr2 = data?.cr?.value;
+  const isMobile = useIsMobile();
 
   // Extract only JD keys dynamically
   const jdData = cr2
@@ -28,9 +29,9 @@ const Homes = () => {
     <div className="main-content">
       <h1>RV Modeling App</h1>
       <AddDataSection />
-      
+      { !isMobile && <CustomerVehicleForm />}
       <Calculator />
-      <CustomerVehicleForm />
+     { isMobile && <CustomerVehicleForm />}
       <TransactionsTable />
       <div className="graph">
         <JDTrendChart crData={jdData} />
