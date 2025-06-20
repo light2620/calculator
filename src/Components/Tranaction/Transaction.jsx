@@ -129,13 +129,14 @@ const TransactionsTable = () => {
               <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
               Download
             </button>
-            {isMobile && <div className="actions">
-              <FaFilter style={{marginRight: "6px"}} />
-              <i className="pi pi-download" style={{ marginRight: "6px" }}></i>
-            </div> }
+            
           </div>}
 
-           
+           {isMobile && <div className="actions">
+            
+              <FaFilter style={{marginRight: "6px" , color: "#001b4c"}} />
+              <i className="pi pi-download" style={{ marginRight: "6px" , color:"#001b4c"}} onClick={exportToCSV} ></i>
+            </div> }
 
           {isMobile ? <MobileMinimize setIsMinimize={setIsMinimize} isMinimize={isMinimize} />:<MinimizeIcon setIsMinimize = {setIsMinimize} isMinimize={isMinimize} />}
         </div>
