@@ -4,7 +4,7 @@ import App from "../App";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./UnprotectedRoute";
 import LoadingScreen from "../utils/LoadingScreen/LoadingScreen";
-
+import Table from "../Components/Table/Table";
 // Lazy-loaded components
 const Login = lazy(() => import("../Pages/AuthPage/Login"));
 const Register = lazy(() => import("../Pages/AuthPage/Register"));
@@ -45,6 +45,10 @@ const router = createBrowserRouter([
             path: "login",
             element: withSuspense(<Login />),
           },
+          {
+            path: "table",
+            element: withSuspense(<Table />)
+          }
         ],
       },
     ],
